@@ -19,31 +19,25 @@ public:
         while(!q.empty()){
            size=q.size();
             vector<int>vec;
-            // cout<<i<<endl;
             for(int j=0;j<size;j++){
                 TreeNode* temp=q.front();
                 q.pop();
-                cout<<temp->val<<" ";
                 if(i%2==0){
                     if(j==0){
                       if(temp->val%2==0){ cout<<"hi";
                                          return 0;  }
                     }
                     else if(temp->val%2==0 or (temp->val<=vec[vec.size()-1])) {
-                        cout<<"bye";
                         return 0;
                     }
                 }
                 else{
                     if(j==0){
                         if(temp->val%2==1){
-                            cout<<"b";
                             return 0;
                         }
                     }
                    else if(temp->val%2==1 or (temp->val>=vec[vec.size()-1])) {
-                       cout<<temp->val<<" "<<vec[vec.size()-1];
-                       cout<<"q";
                        return 0; 
                    }
                 }
@@ -51,7 +45,6 @@ public:
                 if(temp->left) q.push(temp->left);
                 if(temp->right) q.push(temp->right);
             }
-            cout<<endl;
             i+=1;
         }
        return true; 
