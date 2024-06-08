@@ -30,14 +30,15 @@ public:
         // for(int j=0;j<nums.size();j++){
         //     nums[j]=myvec[pos][j];
         // 
-        int a[nums.size()];
-        int n=nums.size();
-        for(int i=0;i<nums.size();i++){
-            a[i]=nums[i];
-        }
-        next_permutation(a,a+n);
-        for(int i=0;i<n;i++){
-            nums[i]=a[i];
-        }
+        //2 int a[nums.size()];
+        // int n=nums.size();
+        // for(int i=0;i<nums.size();i++){
+        //     a[i]=nums[i];
+        // }
+        // next_permutation(a,a+n);
+        // for(int i=0;i<n;i++){
+        //     nums[i]=a[i];
+        // }
+        next_permutation(nums.begin(),nums.end());
     }
 };
