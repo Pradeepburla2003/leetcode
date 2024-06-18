@@ -7,7 +7,7 @@ public:
             pr.push_back({profit[i],difficulty[i]});
         }
         sort(pr.begin(),pr.end());
-        sort(worker.begin(),worker.end());
+        // sort(worker.begin(),worker.end());
         int ans=0;
         for(int i=worker.size()-1;i>=0;i--){
             for(int j=n-1;j>=0;j--){
