@@ -1,21 +1,21 @@
 class Solution {
 public:
+    void fun(vector<int>& nums,vector<int>&p,set<vector<int>>& s,int i,int n){
+        if(i==n){
+            s.insert(p);
+            return;
+        }
+        p.push_back(nums[i]);
+        fun(nums,p,s,i+1,n);
+        p.pop_back();
+        fun(nums,p,s,i+1,n);
+    }
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        set<vector<int>>temp;
+        set<vector<int>>s;
+        vector<int>p;
         sort(nums.begin(),nums.end());
-        int n=nums.size(),k=pow(2,n);
-        for(int i=0;i<k;i++){
-            vector<int>sub;
-            for(int j=0;j<32;j++){
-                if((i>>j)&1) sub.push_back(nums[j%n]);
-            }
-            temp.insert(sub);
-        }
-        vector<vector<int>> ans;
-        for(auto i:temp){
-            ans.push_back(i);
-        }
-        // sort(ans.begin(),ans.end());
+        fun(nums,p,s,0,nums.size());
+        vector<vector<int>>ans(s.begin(),s.end());
         return ans;
     }
 };
