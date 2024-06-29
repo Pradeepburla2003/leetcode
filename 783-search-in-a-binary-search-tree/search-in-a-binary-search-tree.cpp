@@ -12,19 +12,10 @@
 class Solution {
 public:
     TreeNode* searchBST(TreeNode* root, int val) {
-        TreeNode* ans=NULL;
-        queue<TreeNode*>q;
-        q.push(root);
-        while(!q.empty()){
-            int size=q.size();
-            for(int i=0;i<size;i++){
-                TreeNode* temp=q.front();
-                q.pop();
-                if(temp->val==val) return temp;
-                if(temp->left) q.push(temp->left);
-                if(temp->right) q.push(temp->right);
-            }
-        }
-        return ans;
+        if(!root) return NULL;
+        if(root->val==val) return root;
+        if(root->val>val) return searchBST(root->left,val);
+        else return searchBST(root->right,val);
+        return NULL;
     }
 };
