@@ -11,23 +11,16 @@
  */
 class Solution {
 public:
-    int ans=INT_MIN,edge=INT_MIN;
+    int ans=INT_MIN;
     int fun(TreeNode* root){
-        if(!root)return 0;
-        // if(root->left==NULL and root->right==NULL)return root->val;
-         edge=max(edge,root->val);
-        int left=fun(root->left);
-        int right=fun(root->right);
-        ans=max(ans,max(left,right));
-        // ans=max(ans,left+right);
-        ans=max(ans,max(root->val+left+right,root->val));
-        cout<<ans<<endl;
-        return max(0,max(left,right)+root->val);
-        
+        if(!root) return 0;
+        int left=max(0,fun(root->left));
+        int right=max(0,fun(root->right));
+        ans=max(ans,left+right+root->val);
+        return root->val+max(left,right);
     }
     int maxPathSum(TreeNode* root) {
-        int temp = fun(root);
-        if(edge>INT_MIN && edge<0) return edge;
+        int temp=fun(root);
         return ans;
     }
 };
