@@ -1,18 +1,16 @@
 class Solution {
 public:
-    int ans=0;
-    int paths(vector<vector<int>>&grid,int m,int n,int i,int j){
-        if(m==i or n==j) return 0;
-        if(i==m-1 && j==n-1){
-            return 1;
-        }
-        if(grid[i][j]!=0) return grid[i][j];
-        grid[i][j]=paths(grid,m,n,i,j+1)+paths(grid,m,n,i+1,j);
-        return grid[i][j];
+    int fun(int i,int j,int m,int n,vector<vector<int>>&dp){
+        if(i==m-1 and j==n-1) return 1;
+        if(i>=m or j>=n) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        int down=fun(i+1,j,m,n,dp);
+        int right=fun(i,j+1,m,n,dp);
+        // cout<<down<<" "<<right<<endl;
+        return dp[i][j]=down+right;
     }
     int uniquePaths(int m, int n) {
-        vector<vector<int>>grid(m,vector<int>(n,0));
-        return paths(grid,m,n,0,0);
-        
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        return fun(0,0,m,n,dp);
     }
 };
