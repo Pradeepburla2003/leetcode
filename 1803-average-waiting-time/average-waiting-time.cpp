@@ -1,6 +1,7 @@
 class Solution {
 public:
     double averageWaitingTime(vector<vector<int>>& customers) {
+        ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
         double ans=customers[0][1],time=customers[0][0]+customers[0][1],n=customers.size();
         for(int i=1;i<n;i++){
             if(customers[i][0]>=time){
@@ -11,7 +12,7 @@ public:
                 time+=(customers[i][1]);
                 ans+=(time-customers[i][0]);
             }
-            cout<<time<<" "<<ans<<endl;
+
         }
         return ans/n;
     }
