@@ -1,43 +1,41 @@
 class Solution {
 public:
-    bool safe(vector<string>&temp,int row,int col,int n){
-        int i=0,j=0;
-        while(i<col){
-            if(temp[row][i]=='Q') return 0;
-            i++;
+    void fun(int i,int n,vector<vector<string>>&ans,vector<string>& s){
+        if(i==n){
+            ans.push_back(s);
+            return;
         }
-        i=row-1,j=col-1;
-        while(i>=0 && j>=0){
-            if(temp[i][j]=='Q') return 0;
-            i--;
-            j--;
-        }
-        i=row+1,j=col-1;
-        while(i<n && j>=0){
-            if(temp[i][j]=='Q') return 0;
-            i++;
-            j--;
-        }
-        return 1;
-    }
-    void fun(int n,int col,vector<string>&temp,vector<vector<string>>&ans){
-        if(col==n){
-            ans.push_back(temp);
-            return ;
-        }
-        for(int row=0;row<n;row++){
-            if(safe(temp,row,col,n)){
-                temp[row][col]='Q';
-                fun(n,col+1,temp,ans);
-                temp[row][col]='.';
+        for(int j=0;j<n;j++){
+            if(help(s,i,j,n)){
+                s[i][j]='Q';
+                fun(i+1,n,ans,s);
+                s[i][j]='.';
             }
         }
     }
+    bool help(vector<string>&s,int i,int j,int n){
+        for(int row=0;row<i;row++){
+            if(s[row][j]=='Q') return 0;
+        }
+        int row=i,col=j;
+        while(row>-1 && col<n ){
+            if(s[row][col]=='Q') return 0;
+            row--;
+            col++;
+        }
+        row=i,col=j;
+        while(row>-1 && col>-1){
+            if(s[row][col]=='Q') return 0;
+            row--;
+            col--;
+        }
+        return 1;
+    }
     vector<vector<string>> solveNQueens(int n) {
-        string s(n,'.');
-        vector<string>temp(n,s);
         vector<vector<string>>ans;
-        fun(n,0,temp,ans);
+
+        vector<string> s(n,string(n,'.'));
+        fun(0,n,ans,s);
         return ans;
     }
 };
