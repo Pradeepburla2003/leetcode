@@ -18,7 +18,7 @@ class Solution {
     //         // two = help(books , i+1 , j)
     //     }
     //     return one;
-    // }
+    // }    
     int[] dp;
 
     public int help(int[][] books , int ind , int selfWidth){
@@ -33,8 +33,8 @@ class Solution {
             maxheight = Math.max(maxheight, books[i][1]);
             res = Math.min(res, maxheight + help(books, i + 1, selfWidth));
         }
-        maxheight += help(books, i, selfWidth);
-        return dp[ind] = Math.min(maxheight, res);
+        // maxheight += help(books, i, selfWidth);
+        return dp[ind] = res;
     }
 
     public int minHeightShelves(int[][] books, int shelfWidth) {
