@@ -12,9 +12,6 @@ public:
         }
         int c=0,found=0;
         for(auto i:mp){
-            cout<<i.first<<" "<<i.second<<endl;
-        }
-        for(auto i:mp){
             if(found){
                 if(c+i.second>right){
                     ans=(ans%mod+((right-c)*(i.first))%mod)%mod;
@@ -22,7 +19,6 @@ public:
                 }
                 ans=(ans%mod+(i.second*i.first)%mod)%mod;
                 c+=i.second;
-                cout<<ans<<endl;
             }
             else{
                 if(i.second+c>=left){
@@ -30,11 +26,9 @@ public:
                     c+=i.second;
                     if(right<=c){
                         ans=(ans%mod+((right-left+1)*i.first)%mod)%mod;
-                        cout<<ans<<endl;
                         break;
                     }
                     ans=(ans%mod+((c-left+1)*i.first)%mod)%mod;
-                    cout<<ans<<endl;
                 }
                 else{
                     c+=i.second;
