@@ -1,24 +1,23 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        int arr[200]={0};
-        int i=0,j=0,n=s.size(),ans=0;
-        while(j<n){
-            if(arr[s[j]-' ']){
-                int k=j-i;
-                cout<<arr[s[j]-' ']<<" "<<s[j]<<endl;
-                ans=max(ans,k);
-                while(i<j && s[i]!=s[j]){
-                    arr[s[i]-' ']=0;
-                    i++;
+        // if(s == "   ") return 1;
+        int ans = 0, start = 0, n = s.size();
+        vector<int>freq(200,0);
+        for(int i=0;i<s.size();i++){
+            int index = s[i] - ' ';
+            freq[index] += 1;
+            if(freq[index]==2){
+                ans = max(ans,i - start);
+                while(start < i && freq[s[start] - ' '] != 2){
+                    freq[s[start] - ' '] = 0;
+                    start++;
                 }
-                // arr[]=0;
-                i++;
+                freq[s[start] - ' '] = 1;
+                start++;
             }
-            arr[s[j]-' ']=1;
-            j++;
         }
-        ans=max(ans,j-i);
+        ans = max(ans,n-start);
         return ans;
     }
 };
