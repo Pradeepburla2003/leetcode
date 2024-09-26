@@ -1,14 +1,14 @@
 class Solution {
 public:
-    int fun(vector<vector<int>>& triangle,int i,int j,int n,vector<vector<int>>&dp){
-        if(i==n or j>=triangle[i].size()) return 0;
-        if(dp[i][j]!=-1) return dp[i][j];
-        int pick=triangle[i][j]+fun(triangle,i+1,j,n,dp);
-        int nonpick=triangle[i][j]+fun(triangle,i+1,j+1,n,dp);
-        return dp[i][j]=min(pick,nonpick);
+    int help(vector<vector<int>>& triangle,int i,int j,vector<vector<int>>& dp){
+        if(i >= triangle.size() or j >= triangle.size()) return 0;
+        if(dp[i][j] != -1) return dp[i][j];
+        int left = triangle[i][j] + help(triangle,i+1,j,dp);
+        int right = triangle[i][j] + help(triangle,i+1,j+1,dp);
+        return dp[i][j] = min(left,right);
     }
     int minimumTotal(vector<vector<int>>& triangle) {
         vector<vector<int>>dp(triangle.size(),vector<int>(triangle.size(),-1));
-        return fun(triangle,0,0,triangle.size(),dp);
+        return help(triangle,0,0,dp);
     }
 };
