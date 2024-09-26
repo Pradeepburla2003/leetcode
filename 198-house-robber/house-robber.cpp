@@ -1,15 +1,14 @@
 class Solution {
 public:
-    int fun(vector<int>&nums,int i,int n,vector<int>&dp){
-        if(i>=n) return 0;
-        if(dp[i]!=-1) return dp[i];
-        int pick=nums[i]+fun(nums,i+2,n,dp);
-        int nonpick=fun(nums,i+1,n,dp);
-        return dp[i]=max(pick,nonpick);
+    int help(vector<int>& nums,int i,vector<int>& dp){
+        if(i >= nums.size()) return 0;
+        if(dp[i] != -1) return dp[i];
+        int pick = nums[i] + help(nums,i+2,dp);
+        int nonpick = help(nums,i+1,dp);
+        return dp[i] = max(pick,nonpick);
     }
     int rob(vector<int>& nums) {
-        int n=nums.size();
-        vector<int>dp(n,-1);
-        return fun(nums,0,n,dp);
+        vector<int>dp(nums.size(),-1);
+        return help(nums,0,dp);
     }
 };
