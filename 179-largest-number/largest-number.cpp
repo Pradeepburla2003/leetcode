@@ -16,10 +16,8 @@ public:
             }
         }
         string ans = "";
-        int i = 0;
-        while(i < str.size() && str[i]  == "0") i++;
-        while(i < str.size()) ans += str[i++];
-        if(ans == "") return "0";
+        for(auto i:str) ans += i;
+        if(ans[0] == '0') return "0";
         return ans;
     }
 };
