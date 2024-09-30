@@ -4,18 +4,15 @@ public:
         int ans=0;
         for(int i=1;i<nums.size();i++){
             if(nums[i]==nums[i-1]){
-                nums[i-1]=-101;
+                nums[i-1]=101;
                 ans++;
             }
         }
         sort(nums.begin(),nums.end());
-        int i=0,k=0;
+        int i = 0;
         for(i=0;i<nums.size();i++){
-            if(nums[i]!=-101) break;
+            if(nums[i]==101) break;
         }
-        for(int j=i;j<nums.size();j++){
-            swap(nums[j],nums[k++]);
-        }
-        return nums.size()-ans;
+        return i;
     }
 };
