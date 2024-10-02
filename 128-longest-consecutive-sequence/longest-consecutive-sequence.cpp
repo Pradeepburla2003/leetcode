@@ -7,23 +7,23 @@ public:
         for(int i=0;i<nums.size();i++){
             mp[nums[i]]++;
         }
-        int ans=1;
+        int ans=1,flag=0,temp,c=1;
         for(auto i:mp){
-            int c=1,k1=i.first,k2=i.first;
-            if(s.find(k1)!=s.end()) continue;
-            s.insert(i.first);
-            while(mp.find(k1+1)!=mp.end()){
-                c++;
-                k1++;
-                s.insert(k1);
+            if(flag==0){
+                flag = 1;
             }
-            while(mp.find(k2-1)!=mp.end()){
-                c++;
-                k2--;
-                s.insert(k2);
+            else{
+                if(i.first == temp+1){
+                    c+=1;
+                }
+                else{
+                    ans = max(ans,c);
+                    c=1;
+                }
             }
-            ans=max(ans,c);
+            temp = i.first;
         }
+        ans = max(ans,c);
         return ans;
     }
 };
