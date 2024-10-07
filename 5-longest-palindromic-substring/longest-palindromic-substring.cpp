@@ -1,43 +1,30 @@
 class Solution {
 public:
     string longestPalindrome(string s) {
-       int n = s.size();
-        if (n == 0) return "";
-        
-        // dp[i][j] will be true if substring s[i..j] is a palindrome
-        vector<vector<bool>> dp(n, vector<bool>(n, false));
-        
-        int start = 0;
-        int maxLength = 1;
-        
-        // All substrings of length 1 are palindromes
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = true;
-        }
-        
-        // Check for substrings of length 2
-        for (int i = 0; i < n - 1; i++) {
-            if (s[i] == s[i + 1]) {
-                dp[i][i + 1] = true;
-                start = i;
-                maxLength = 2;
-            }
-        }
-        
-        // Check for substrings of length greater than 2
-        for (int len = 3; len <= n; len++) {
-            for (int i = 0; i < n - len + 1; i++) {
-                int j = i + len - 1;
-                if (dp[i + 1][j - 1] && s[i] == s[j]) {
-                    dp[i][j] = true;
-                    if (len > maxLength) {
-                        start = i;
-                        maxLength = len;
-                    }
+        string res = "";
+        int maxlen = 0;
+        int n = s.size();
+        for(int i=0;i<s.size();i++){
+            int l = i,r = i;
+            while(l>=0 && r<n && s[l] == s[r]){
+                if(r-l+1>maxlen){
+                    maxlen = r-l+1;
+                    res = s.substr(l,maxlen);
                 }
+                l-=1;
+                r+=1;
             }
+            l = i,r = i+1;
+             while(l>=0 && r<n && s[l] == s[r]){
+                if(r-l+1>maxlen){
+                    maxlen = r-l+1;
+                    res = s.substr(l,maxlen);
+                }
+                l-=1;
+                r+=1;
+            }
+            // cout<<res<<endl;
         }
-        
-        return s.substr(start, maxLength);
+        return res;
     }
 };
