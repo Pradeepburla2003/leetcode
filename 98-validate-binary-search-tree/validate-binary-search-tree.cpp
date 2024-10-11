@@ -11,22 +11,15 @@
  */
 class Solution {
 public:
-    bool ans=true;
     long long prev=-1e11;
-    void fun(TreeNode* root){
-        if(!root) return;
-        fun(root->left);
-        // cout<<prev<< " "<<root->val<<endl;
-        if(prev>=root->val){
-            ans=false;
-            // return;
-        }
-        else prev=root->val+0LL;
-        
-        fun(root->right);
+    bool fun(TreeNode* root){
+        if (!root) return true;
+        if (!fun(root->left)) return false;
+        if (prev >= root->val) return false;
+        prev = root->val;
+        return fun(root->right);
     }
     bool isValidBST(TreeNode* root) {
-        fun(root);
-        return ans;
+        return fun(root);
     }
 };
