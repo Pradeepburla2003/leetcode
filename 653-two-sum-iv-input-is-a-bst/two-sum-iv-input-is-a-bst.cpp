@@ -12,19 +12,19 @@
 class Solution {
 public:
     bool flag=false;
-    void fun(TreeNode* root,int k,set<int>&s){
-        if(!root) return;
+    bool fun(TreeNode* root,int k,set<int>&s){
+        if(!root) return false;
         if(s.find(k-root->val)!=s.end()){
-            flag=true;
-            return;
+            return true;
         }
         s.insert(root->val);
-        fun(root->left,k,s);
-        fun(root->right,k,s);
+        if(fun(root->left,k,s)) return true;
+        if(fun(root->right,k,s)) return true;
+        return false;
     }
     bool findTarget(TreeNode* root, int k) {
         set<int>s;
-        fun(root,k,s);
+        return fun(root,k,s);
         return flag;
     }
 };
