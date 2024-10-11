@@ -26,27 +26,21 @@ public:
         while(!q.empty()){
             int size=q.size();
             vector<Node*>vc;
+             Node* prev = NULL;
             for(int i=0;i<size;i++){
                 Node* temp=q.front();
                 q.pop();
+                if(prev) prev->next = temp;
+                prev = temp;
                 if(temp->left){
                     q.push(temp->left);
-                    vc.push_back(temp->left);
                 }
                 if(temp->right){
                     q.push(temp->right);
-                    vc.push_back(temp->right);
                 }
             }
-            if(vc.size()==0) break;
             
-            for(int i=0;i<vc.size()-1;i++){
-                cout<<vc[i]->val<<" ";
-                vc[i]->next=vc[i+1];
-            }
-            cout<<endl;
-            // return ans;
         }
-        return ans;
+        return root;
     }
 };
