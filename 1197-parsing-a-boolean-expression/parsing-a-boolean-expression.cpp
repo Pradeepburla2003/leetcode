@@ -9,18 +9,14 @@ public:
                 bool res = false;
                 if(s[s.size()-1] == '&'){
                     res = true;
-                    cout<<"&"<<endl;
                     while(!st.empty() && st.top() != '('){
                         if(st.top() == 'f') res = false;
-                        cout<<st.top()<<endl;
                         st.pop();
                     }
                 }
                 else if(s[s.size()-1] == '|'){
-                    cout<<"|"<<endl;
                     while(!st.empty() && st.top() != '('){
                         if(st.top() == 't') res = true;
-                        cout<<st.top()<<endl;
                         st.pop();
                     }
                 }
@@ -30,7 +26,6 @@ public:
                     st.pop();
                 }
                 st.pop();
-                // cout<<res<<"\n\n";
                 if(res) st.push('t');
                 else st.push('f');
                 s.pop_back();
@@ -39,8 +34,6 @@ public:
                 if(expression[i] != ',') st.push(expression[i]);
             }
         }
-        if(st.top() == 't') return true;
-        return false;
-        // return st.top();
+        return st.top() == 't';
     }
 };
