@@ -1,32 +1,18 @@
 class Solution {
 public:
-    bool solve(int index1, int index2, string &text, string &pattern,vector<vector<int>> &dp) {
-        if (index1 < 0 && index2 < 0) return true;
-        if (index2 < 0 && index1 >= 0) return false;
-        if (index1 < 0 && index2 >= 0) {
-            for (int i = 0; i <= index2; i++) {
-                if (pattern[i] != '*') return false;
-            }
+    bool help(string &s,string &p,int i,int j,vector<vector<int>>&dp){
+        if(j==p.size()) return (i==s.size());
+        if(i==s.size()){
+            for(int k=j;k<p.size();k++) if(p[k]!='*') return false;
             return true;
         }
-        if(dp[index1][index2]!=-1){
-            return dp[index1][index2];
-        }
-        if (text[index1] == pattern[index2] || pattern[index2] == '?') {
-            return dp[index1][index2]=solve(index1 - 1, index2 - 1, text, pattern,dp);
-        }
-
-        if (pattern[index2] == '*') {
-            return dp[index1][index2]=solve(index1 - 1, index2, text, pattern,dp) || solve(index1, index2 - 1, text, pattern,dp);
-        }
-
-        return dp[index1][index2]=false;
+        if(dp[i][j]!=-1) return dp[i][j];
+        if((s[i]==p[j] or p[j]=='?')) return dp[i][j]=help(s,p,i+1,j+1,dp);
+        if(p[j]=='*') return dp[i][j]=(help(s,p,i+1,j,dp) || help(s,p,i,j+1,dp));
+        return dp[i][j]=false;
     }
-
     bool isMatch(string s, string p) {
-        int n1 = s.size();
-        int n2 = p.size();
-        vector<vector<int>> dp(n1,vector<int>(n2,-1));
-        return solve(n1-1, n2-1, s, p,dp);
+        vector<vector<int>>dp(s.size()+1,vector<int>(p.size()+1,-1));
+        return help(s,p,0,0,dp);
     }
 };
