@@ -20,9 +20,6 @@ public:
             }
             else{
                 ans.push_back(nums[midle]);
-                if(nums[start]>2LL*nums[midle]){
-                    count+=mid-start+1;
-                }
                 midle++;
             }
         }
