@@ -1,18 +1,23 @@
 class Solution {
 public:
-    void fun(vector<int>& candidates, int target,int sum,set<vector<int>>&s,int i,int n,vector<int>& temp){
-        if(i==n or sum>target) return;
-        if(sum==target) s.insert(temp);
-        temp.push_back(candidates[i]);
-        fun(candidates,target,sum+candidates[i],s,i,n,temp);
-        temp.pop_back();
-        fun(candidates,target,sum,s,i+1,n,temp);
+    void help(vector<int>& candidates,int i,int target,vector<int>& temp,set<vector<int>>&st){
+        if(target==0){
+            st.insert(temp);
+            return;
+        }
+        for(int j=i;j<candidates.size();j++){
+            if(target-candidates[j]>=0){
+                temp.push_back(candidates[j]);
+                help(candidates,j,target-candidates[j],temp,st);
+                temp.pop_back();
+            }
+        }
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-        set<vector<int>>s;
+        set<vector<int>>st;
         vector<int>temp;
-        fun(candidates,target,0,s,0,candidates.size(),temp);
-        vector<vector<int>>ans(s.begin(),s.end());
+        help(candidates,0,target,temp,st);
+        vector<vector<int>>ans(st.begin(),st.end());
         return ans;
     }
 };
