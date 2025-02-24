@@ -14,7 +14,6 @@ public:
     map<int,map<int,vector<int>>>temp;
     void dfs(TreeNode* root,int pos,int level){
         if(!root) return;
-        cout<<root->val<<" ";
         temp[pos][level].push_back(root->val);
         dfs(root->left,pos-1,level++);
         dfs(root->right,pos+1,level++);
@@ -23,11 +22,11 @@ public:
         dfs(root,0,0);
         vector<vector<int>>ans;
         for(auto i:temp){
-            // sort(i.second.begin(),i.second.end());
             vector<int>dummy;
             for(auto j:i.second){
-                sort(j.second.begin(),j.second.end());
-                dummy.insert(dummy.end(),j.second.begin(),j.second.end());
+                vector<int>vc(j.second.begin(),j.second.end());
+                sort(vc.begin(),vc.end());
+               dummy.insert(dummy.end(), vc.begin(), vc.end());
             }
             ans.push_back(dummy);
         }
