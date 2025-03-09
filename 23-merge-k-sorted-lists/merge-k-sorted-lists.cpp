@@ -10,28 +10,26 @@
  */
 class Solution {
 public:
-    struct Compare {
-        bool operator()(ListNode* a, ListNode* b) {
-            return a->val > b->val;
-        }
-    };
+    ListNode* merge(ListNode* l1,ListNode* l2){
+       if(!l1) return l2;
+       if(!l2) return l1;
+       if(l1->val<=l2->val){
+        l1->next=merge(l1->next,l2);
+        return l1;
+       }
+       else{
+        l2->next=merge(l1,l2->next);
+        return l2;
+       }
+    }
     ListNode* mergeKLists(vector<ListNode*>& lists) {
         // if(lists.size()) return NULL;
-        priority_queue<ListNode*, vector<ListNode*>,Compare>mp;
-        ListNode* temp = new ListNode(-1);
-        ListNode* ans = temp;
-        for(auto list:lists){
-            if(list) mp.push(list);
+        if(lists.size()==0) return NULL;
+        while(lists.size()>1){
+            int size=lists.size();
+            lists[size-2]=merge(lists[size-2],lists[size-1]);
+            lists.pop_back();
         }
-        while(!mp.empty()){
-            auto node = mp.top();
-            mp.pop();
-            temp->next = node;
-            temp = temp->next;
-            if(node->next){
-                mp.push(node->next);
-            }
-        }
-        return ans->next;
+       return lists[0];
     }
 };
